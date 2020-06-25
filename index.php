@@ -113,7 +113,9 @@ $app->get(
 
 });
 
-$app->get("/produto-:id_prod", function($id_prod){
+$app->get(
+    '/produto-:id_prod',
+    function($id_prod){
 
     $sql = new Sql();
 
@@ -130,6 +132,177 @@ $app->get("/produto-:id_prod", function($id_prod){
     $produto['total'] = number_format($preco, 2, ",", ".");
 
     require_once("view/shop-produto.php");
+
+});
+
+$app->get(
+    '/cart',
+    function () {
+        
+        require_once("view/cart.php");
+        
+    }
+);
+
+$app->get(
+    '/carrinho-dados',
+    function () {
+        
+        $sql = new Sql();
+
+        $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+
+        $carrinho = $result[0];
+
+        $sql = new Sql();
+
+        $carrinho['produtos'] = $sql->select("CALL sp_carrinhosprodutos_list(".$carrinho['id_car'].")");
+
+        $carrinho['total_car'] = number_format((float)$carrinho['total_car'], 2, ',', '.');
+        $carrinho['subtotal_car'] = number_format((float)$carrinho['subtotal_car'], 2, ',', '.');
+        $carrinho['frete_car'] = number_format((float)$carrinho['frete_car'], 2, ',', '.');
+
+        echo json_encode($carrinho);
+        
+    }
+);
+
+$app->get(
+    '/carrinhoAdd-:id_prod',
+    function($id_prod) {
+
+    $sql = new Sql();
+
+    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+
+    $carrinho = $result[0];
+
+    $sql = new Sql();
+
+    $sql->query("CALL sp_carrinhosprodutos_add(".$carrinho['id_car'].", ".$id_prod.")");
+
+    header("location: cart");
+
+    exit;
+
+});
+
+$app->delete(
+    '/carrinhoRemoveAll-:id_prod',
+    function($id_prod){
+
+    $sql = new Sql();
+
+    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+
+    $carrinho = $result[0];
+
+    $sql = new Sql();
+
+    $sql->query("CALL sp_carrinhosprodutostodos_rem(".$carrinho['id_car'].", ".$id_prod.")");
+
+    echo json_encode(array("success"=>true));
+
+});
+
+$app->post(
+    '/carrinho-produto',
+    function(){
+    
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    $sql = new Sql();
+
+    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+
+    $carrinho = $result[0];
+
+    $sql = new Sql();
+
+    $sql->query("CALL sp_carrinhosprodutos_add(".$carrinho['id_car'].", ".$data['id_prod'].")");
+
+    echo json_encode(array("success"=>true));
+
+
+});
+
+$app->delete(
+    '/carrinho-produto',
+    function(){
+    
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    $sql = new Sql();
+
+    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+
+    $carrinho = $result[0];
+
+    $sql = new Sql();
+
+    $sql->query("CALL sp_carrinhosprodutos_rem(".$carrinho['id_car'].", ".$data['id_prod'].")");
+
+    echo json_encode(array("success"=>true));
+
+
+});
+
+$app->get(
+    '/calcular-frete-:cep',
+    function($cep){
+
+    require_once("inc/php-calculo-frete-master/frete.php");
+
+    $sql = new Sql();
+
+    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+
+    $carrinho = $result[0];
+
+    $sql = new Sql();
+
+    $produtos = $sql->select("CALL sp_carrinhosprodutosfrete_list(".$carrinho['id_car'].")");
+
+    $peso = 0; 
+    $comprimento = 0;
+    $altura = 0;
+    $largura = 0;
+    $valor = 0;
+
+    foreach ($produtos as $produto) {
+        $peso =+ $produto['peso'];
+        $comprimento =+ $produto['comprimento'];
+        $altura =+ $produto['altura'];
+        $largura =+ $produto['largura'];
+        $valor =+ $produto['preco'];
+    }
+
+    $cep = trim(str_replace('-', '', $cep));
+
+    $frete = new Frete(
+        $cepDeOrigem = '05587010', 
+        $cepDeDestino = $cep, 
+        $peso, 
+        $comprimento, 
+        $altura, 
+        $largura, 
+        $valor
+    );
+
+    $sql = new Sql();
+
+    $sql->query("
+        UPDATE tb_carrinhos 
+        SET 
+            cep_car = '".$cep."', 
+            frete_car = ".$frete->getValor().",
+            prazo_car = ".$frete->getPrazoEntrega()."
+        WHERE id_car = ".$carrinho['id_car']
+    );
+
+    echo json_encode(array(
+        'success'=>true
+    ));
 
 });
 
