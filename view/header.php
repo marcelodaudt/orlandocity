@@ -26,6 +26,7 @@
 			
 			<ul class="list-unstyled">
 				<li><a href="videos">Vídeos</a></li>
+				<li><a href="shop">Shop</a></li>
 				<li><a href="#">Tickets</a></li>
 				<li><a href="#">News</a></li>
 				<li><a href="#">Schedule</a></li>
@@ -90,6 +91,7 @@
 					<ul>
 						<li><a href="/">Home</a></li>
 						<li><a href="videos">Vídeos</a></li>
+						<li><a href="shop">Shop</a></li>
 						<li><a href="#">Tickets</a></li>
 						<li><a href="#">News</a></li>
 						<li><a href="#">Schedule</a></li>
