@@ -7,26 +7,25 @@ Projeto de um *website* com loja virtual para o clube de futebol **Orlando City 
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
-- [HTML5](https://expo.io/)
-- [CSS3](https://nodejs.org/en/)
-- [JavaScript](https://pt-br.reactjs.org/)
-- [Slim Framework](https://reactnative.dev/)
+- [HTML5](https://html.spec.whatwg.org/)
+- [CSS3](http://www.w3.org/TR/css3-roadmap/)
+- [JavaScript](https://developer.mozilla.org/en/JavaScript)
+- [Slim Framework](https://www.slimframework.com/)
 
 
 ### Features
 
-Recursos atualmente disponíveis
+Recursos atualmente disponíveis:
 
 - [x] Visualização de vídeos;
 - [x] Loja virtual básica;
-- [ ] Cadastro de produtos;
-- [ ] Agenda;
-- [ ] Notícias.
-
+- [ ] Cadastro de produtos.
+- [ ] Cadastro e visualização de notícias;
+- [ ] Cadastro e visualização de agenda.
 
 ## Banco de Dados
 
-Executar os *scripts* abaixo, localizados na pasta "**sql**", para criar o banco de dados "hcode_shop", com suas respectivas Tabelas e Procedimentos:
+Executar os *scripts* abaixo, localizados na pasta "**sql**", para criar o banco de dados "**hcode_shop**", com suas respectivas tabelas e procedimentos:
 
 **TABELAS**
 - hcode_shop_tb_reviews.sql
@@ -37,19 +36,22 @@ Executar os *scripts* abaixo, localizados na pasta "**sql**", para criar o banco
 **PROCEDURES**
 - hcode_shop_routines.sql
 
-Para configurar o acesso do *website* ao banco de dados, alterar a linha abaixo no arquivo "inc/configuration.php":
+Para configurar o acesso do *website* ao banco de dados, alterar a linha abaixo no arquivo "**inc/configuration.php**":
 
-...php
+
+```php
 	function __construct()
 	{
 
 		return $this->conn = mysqli_connect("server", "user", "password", "hcode_shop");
-		
+
 	}
-...
+```
 
 ## Acesso
 
 Visualização do projeto em funcionamento.
 
-*link*: https://daudt.com.br/orlandocity/
+https://daudt.com.br/orlandocity/
+
+[https://daudt.com.br/orlandocity/](https://daudt.com.br/orlandocity/){:target="_blank" rel="noopener"}
