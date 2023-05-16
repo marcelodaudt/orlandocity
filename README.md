@@ -52,4 +52,4 @@ Para configurar o acesso do *website* ao banco de dados, alterar a linha abaixo 
 
 Visualização do projeto em funcionamento.
 
-https://daudt.com.br/orlandocity/
+https://daudt.com.br/projetos/orlandocity
