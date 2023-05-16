@@ -17,23 +17,23 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 Recursos atualmente disponíveis:
 
-- [x] Visualização de vídeos;
-- [x] Loja virtual básica;
-- [ ] Cadastro de produtos.
-- [ ] Cadastro e visualização de notícias;
-- [ ] Cadastro e visualização de agenda.
+- [x] Visualização de vídeos
+- [x] Loja virtual básica
+- [ ] Cadastro de produtos
+- [ ] Cadastro e visualização de notícias
+- [ ] Cadastro e visualização de agenda
 
 ## Banco de Dados
 
-Executar os *scripts* abaixo, localizados na pasta "**sql**", para criar o banco de dados "**hcode_shop**", com suas respectivas tabelas e procedimentos:
+Executar os *scripts* abaixo, localizados na pasta "**sql**", para criar o banco de dados "**hcode_shop**", com suas respectivas tabelas e procedimentos.
 
-**TABELAS**
+**Criando as tabelas:**
 - hcode_shop_tb_reviews.sql
 - hcode_shop_tb_produtos.sql
 - hcode_shop_tb_carrinhosprodutos.sql
 - hcode_shop_tb_carrinhos.sql
 
-**PROCEDURES**
+**Criando as *procedures*:**
 - hcode_shop_routines.sql
 
 Para configurar o acesso do *website* ao banco de dados, alterar a linha abaixo no arquivo "**inc/configuration.php**":
@@ -53,5 +53,3 @@ Para configurar o acesso do *website* ao banco de dados, alterar a linha abaixo 
 Visualização do projeto em funcionamento.
 
 https://daudt.com.br/orlandocity/
-
-[https://daudt.com.br/orlandocity/](https://daudt.com.br/orlandocity/){:target="_blank" rel="noopener"}
