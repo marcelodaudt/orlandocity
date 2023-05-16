@@ -8,7 +8,7 @@ class Sql
 	function __construct()
 	{
 
-		return $this->conn = mysqli_connect("127.0.0.1", "root", "secret", "hcode_shop");
+		return $this->conn = mysqli_connect("127.0.0.1", "homestead", "secret", "hcode_shop");
 
 	}
 
